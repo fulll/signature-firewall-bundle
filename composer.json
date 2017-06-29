@@ -1,0 +1,25 @@
+{
+    "name": "inextensodigital/signature-firewall-bundle",
+    "description": "Firewall include signature system for Symfony.",
+    "type": "bundle",
+    "authors": [{
+        "name": "inextensodigital Guys",
+        "homepage": "https://github.com/inextensodigital/signature-firewall-bundle/graphs/contributors"
+    }],
+    "autoload": {
+        "psr-4": { "IED\\SignatureFirewallBundle\\": "src/"}
+    },
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": ">=2.8,<4.0"
+    },
+    "suggest": {
+        "lcobucci/jwt": "JWT signature."
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
