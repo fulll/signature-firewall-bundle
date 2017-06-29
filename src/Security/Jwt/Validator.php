@@ -2,7 +2,8 @@
 
 namespace IED\SignatureFirewallBundle\Security\Jwt;
 
-use IED\SignatureFirewallBundle\Security\RequestSignatureValidator;
+use IED\SignatureFirewallBundle\Security\Signature\Config as SignatureConfig;
+use IED\SignatureFirewallBundle\Security\Signature\Factory as SignatureFactory;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\ValidationData;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,14 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 class Validator
 {
     private $ttl;
-    private $requestSignatureValidator;
+    private $signatureConfig;
 
     const CLAIM_REQUEST_SIGNATURE = 'request_signature';
 
-    public function __construct($ttl, RequestSignatureValidator $requestSignatureValidator = null)
+    public function __construct($ttl, SignatureConfig $signatureConfig = null)
     {
         $this->ttl = $ttl;
-        $this->requestSignatureValidator = $requestSignatureValidator;
+        $this->signatureConfig = $signatureConfig;
     }
 
     public function validate(Token $token, Request $request)
@@ -33,12 +34,14 @@ class Validator
             }
         }
 
-        if ($this->requestSignatureValidator) {
+        if ($this->signatureConfig) {
             if (false === $token->hasClaim(static::CLAIM_REQUEST_SIGNATURE)) {
                 return false;
             }
 
-            if (false === $this->requestSignatureValidator->validate($token->getClaim(static::CLAIM_REQUEST_SIGNATURE), $request)) {
+            $signature = SignatureFactory::createFromSymfonyRequest($this->signatureConfig, $request);
+
+            if ($signature != $token->getClaim(static::CLAIM_REQUEST_SIGNATURE)) {
                 return false;
             }
         }

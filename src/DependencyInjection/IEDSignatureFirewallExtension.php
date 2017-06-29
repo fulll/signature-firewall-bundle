@@ -16,17 +16,24 @@ class IEDSignatureFirewallExtension extends Extension
             // we have only jwt_rsa at this moment.
             $jwt = $configuration['jwt'];
             $validationData = $jwt['validation'];
-            $requestSignatureValidator = ($validationData['request']) ? new Definition('IED\SignatureFirewallBundle\Security\RequestSignatureValidator', [$validationData['request']]) : null;
+
+            $signatureConfig = null;
+            if (!empty($validationData['request'])) {
+                $signatureConfig = new Definition('IED\SignatureFirewallBundle\Security\Signature\Config', [$validationData['request']]);
+                $container->setDefinition(sprintf('ied.signature_firewall.signature_config.%s', $id), $signatureConfig);
+            }
+
+            //$signatureConfig = ($validationData['request']) ? new Definition('IED\SignatureFirewallBundle\Security\Signature\Config', [$validationData['request']]) : null;
             $validator = new Definition('IED\SignatureFirewallBundle\Security\Jwt\Validator', [
                 $validationData['ttl'],
-                $requestSignatureValidator,
+                $signatureConfig
             ]);
 
             $authenticatorClass = ($jwt['signer'] === 'rsa') ? 'IED\SignatureFirewallBundle\Security\Jwt\Rsa\Authenticator' : 'IED\SignatureFirewallBundle\Security\Jwt\Hmac\Authenticator';
 
             $authenticator = new Definition($authenticatorClass, [$validator]);
 
-            $container->setDefinition(sprintf('ied.signature_firewall.jwt_rsa_authenticator.%s', $id), $authenticator);
+            $container->setDefinition(sprintf('ied.signature_firewall.authenticator.%s', $id), $authenticator);
         }
     }
 }
