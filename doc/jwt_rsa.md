@@ -5,7 +5,7 @@ User provider has to inherit from `IED\SignatureFirewallBundle\Security\Jwt\Rsa\
 
 Example with a `App` entity like this:
 
-```
+```php
 <?php
 
 namespace AppBundle\Entity;
