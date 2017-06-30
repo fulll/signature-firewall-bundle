@@ -27,7 +27,6 @@ class Validator
             return false;
         }
 
-
         if ($this->ttl) {
             if (false === $token->hasClaim('iat') || ($token->getClaim('iat') + $this->ttl) < time()) {
                 return false;

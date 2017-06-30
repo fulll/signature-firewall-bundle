@@ -26,7 +26,7 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
-$request = new Psr7Request('GET', ''http://myendpoint.loc/secured?foo=bar&bar=foo');
+$request = new Psr7Request('GET', 'http://myendpoint.loc/secured?foo=bar&bar=foo');
 
 // Here you get the signature configuration for the `my_firewall` firewall.
 $signatureConfig = $container->get('ied.signature_firewall.signature_config.my_firewall');
