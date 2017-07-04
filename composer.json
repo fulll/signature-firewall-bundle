@@ -11,10 +11,8 @@
     },
     "require": {
         "php": ">=5.4",
-        "symfony/symfony": ">=2.8,<4.0"
-    },
-    "suggest": {
-        "lcobucci/jwt": "JWT signature."
+        "symfony/symfony": ">=2.8,<4.0",
+        "lcobucci/jwt": "3.x"
     },
     "minimum-stability": "dev",
     "extra": {
