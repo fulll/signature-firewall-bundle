@@ -1,10 +1,10 @@
 {
-    "name": "inextensodigital/signature-firewall-bundle",
+    "name": "fulll/signature-firewall-bundle",
     "description": "Firewall include signature system for Symfony.",
     "type": "bundle",
     "authors": [{
-        "name": "inextensodigital Guys",
-        "homepage": "https://github.com/inextensodigital/signature-firewall-bundle/graphs/contributors"
+        "name": "fulll Guys",
+        "homepage": "https://github.com/fulll/signature-firewall-bundle/graphs/contributors"
     }],
     "autoload": {
         "psr-4": { "IED\\SignatureFirewallBundle\\": "src/"}
