@@ -1,4 +1,4 @@
-InExtenso Digital SignatureFirewallBundle
+Fulll SignatureFirewallBundle
 =========================================
 
 Symfony firewall which handle signature security using Guard. 
